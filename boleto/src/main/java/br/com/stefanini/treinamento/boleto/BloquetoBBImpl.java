@@ -53,7 +53,13 @@ public abstract class BloquetoBBImpl implements BloquetoBB {
 	 */
 	protected String getValorFormatado() {
 
-		// TODO: Explicar o que este método está fazendo
+		/**
+		 * Tal metado coloca alguns zeros na frente do valor verdadeiro do
+		 * boloto pois este devara apresentar 8 casas antes do ponto e duas logo
+		 * apos a ponto.
+		 * 
+		 */
+
 		return String.format(
 				"%010d",
 				Long.valueOf(valor.setScale(2, RoundingMode.HALF_UP).toString()
@@ -175,6 +181,11 @@ public abstract class BloquetoBBImpl implements BloquetoBB {
 	 * @return
 	 */
 	protected static long diferencaEmDias(Date dataInicial, Date dataFinal) {
+
+		/**
+		 * Tal metado faz a diferença em mile segundos do dia final para o dia
+		 * inicial dividido pelo total de mile segundos que um dia tem .
+		 */
 
 		// TODO: Estude a Math e escreva aqui o que este método está fazendo
 

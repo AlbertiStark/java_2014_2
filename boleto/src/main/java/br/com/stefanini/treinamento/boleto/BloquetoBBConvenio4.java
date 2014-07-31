@@ -77,7 +77,7 @@ public class BloquetoBBConvenio4 extends BloquetoBBImpl implements BloquetoBB {
 			String contaCorrenteRelacionamentoSemDV, String tipoCarteira)
 			throws ManagerException {
 
-		//TODO: INICIALIZAR DADOS
+		// TODO: INICIALIZAR DADOS
 
 		validaDados();
 
@@ -101,11 +101,9 @@ public class BloquetoBBConvenio4 extends BloquetoBBImpl implements BloquetoBB {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append(codigoBanco);
 		buffer.append(codigoMoeda);
-	    
-		//TODO: COMPLETAR
-		
-		
-		
+
+		// TODO: COMPLETAR
+
 		return buffer.toString();
 	}
 
@@ -115,9 +113,8 @@ public class BloquetoBBConvenio4 extends BloquetoBBImpl implements BloquetoBB {
 		init();
 
 		StringBuilder buffer = new StringBuilder();
-		
-		//TODO: COMPLETAR
-		
+
+		// TODO: COMPLETAR
 
 		return buffer.toString();
 	}
