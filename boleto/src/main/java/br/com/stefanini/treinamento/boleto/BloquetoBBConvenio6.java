@@ -60,7 +60,7 @@ public class BloquetoBBConvenio6 extends BloquetoBBImpl implements BloquetoBB {
 					"Conta corrente de relacionamento não informada. O número da conta deve ter 8 posições");
 		}
 
-		if (tipoCarteira == null || tipoCarteira.length() != 8) {
+		if (tipoCarteira == null || tipoCarteira.length() != 2) {
 			throw new ManagerException(
 					"Tipo carteira não informado ou o valor é inválido");
 		}
@@ -96,8 +96,11 @@ public class BloquetoBBConvenio6 extends BloquetoBBImpl implements BloquetoBB {
 
 	@Override
 	protected String getLDNumeroConvenio() {
+		
+		String convenio = String.format("%06d", Long.valueOf(numeroConvenioBanco));
+		return String.format("%s.%s", convenio.substring(0,1),
+				convenio.substring(1,5));
 
-		return "";
 
 	}
 
@@ -113,18 +116,20 @@ public class BloquetoBBConvenio6 extends BloquetoBBImpl implements BloquetoBB {
 		buffer.append(codigoBanco);
 		buffer.append(codigoMoeda);
 		buffer.append(fatorVencimento);
-		buffer.append(dataVencimento);
-		buffer.append(dataBase);
-		buffer.append(valor);
+		buffer.append(getValorFormatado());
 		buffer.append(numeroConvenioBanco);
 		buffer.append(complementoNumeroConvenioBancoSemDV);
-		buffer.append(numeroAgenciaRelacionamento);
-		buffer.append(contaCorrenteRelacionamentoSemDV);
+		
+		if(!"21".equals(tipoCarteira)){
+			buffer.append(numeroAgenciaRelacionamento);
+			buffer.append(contaCorrenteRelacionamentoSemDV);
+		}
+		
 		buffer.append(tipoCarteira);
+		return buffer.toString();
 
 		// TODO: COMPLETAR
 
-		return buffer.toString();
 	}
 
 	@Override
@@ -134,18 +139,21 @@ public class BloquetoBBConvenio6 extends BloquetoBBImpl implements BloquetoBB {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append(codigoBanco); // camp 01-03
-		buffer.append(codigoMoeda);//camp 04 a 04
+		buffer.append(codigoBanco); // camp 01-03(03)
+		buffer.append(codigoMoeda);//camp 04 a 04(01)
 		buffer.append(digitoVerificadorCodigoBarras(getCodigoBarrasSemDigito()));
 		
 		buffer.append(fatorVencimento);//06 a 09
-		buffer.append(dataVencimento);
-		buffer.append(dataBase);
+		buffer.append(getValorFormatado());
 		buffer.append(valor);// 10 a 19
 		buffer.append(numeroConvenioBanco);// 20 a 25
-		buffer.append(complementoNumeroConvenioBancoSemDV);//26 a 30
-		buffer.append(numeroAgenciaRelacionamento);//31 34
-		buffer.append(contaCorrenteRelacionamentoSemDV);// 35 a 42
+		buffer.append(complementoNumeroConvenioBancoSemDV);
+		if (!"21".equals(tipoCarteira)){
+			
+			buffer.append(numeroAgenciaRelacionamento);
+			buffer.append(contaCorrenteRelacionamentoSemDV);
+		}
+		
 		buffer.append(tipoCarteira); //43 a 44
 		
 
